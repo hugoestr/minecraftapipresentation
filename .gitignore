@@ -1,3 +1,5 @@
 *.*~
 *.*.swp
 server.log
+*~
+server.log.lck
