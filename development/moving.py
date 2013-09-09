@@ -3,48 +3,42 @@ import mcpi.minecraft as minecraft
 import mcpi.block as block
 import time
 
+def draw(world, coordinates, material):
+  [x,y,z] = coordinates
+  height = 3
+  distance = 3
+
+  for level in range(0, height):
+    world.setBlock( x, y + level, z, material) 
+
+def update(coordinates, distance):
+  [x, y, z] = coordinates
+  x = x + distance
+  z = z + distance
+  coordinates = [x, y, z]
+  return coordinates
+
+def clear(world, coordinates):
+ draw(world, coordinates, block.AIR) 
+
+def wander(world, coordinates, material):
+  world.postToChat("wandering")
+  for i in range(0, 100 ):
+    clear(world, coordinates)
+    coordinates = update(coordinates, 1)
+    draw(world, coordinates, material)
+    time.sleep(0.2)
+
+
 world = minecraft.Minecraft.create()
 
-# we create a mob class to create mob objects 
-# this saves us from having to type the creating code again and again
-class Mob():
-  # this is the method that creates the Mob object
-  def __init__(self, coordinates, distance):
-    self.coordinates = coordinates
-    self.material = block.STONE
-
-    self.update(distance)
-    self.draw(self.coordinates, self.material)
-
-  def draw(self, coordinates, material):
-    [x,y,z] = coordinates
-    height = 3
-    distance = 3
-
-    for level in range(0, height):
-      world.setBlock( x, y + level, z, material) 
-
-  def update(self, distance):
-    [x, y, z] = self.coordinates
-    x = x + distance
-    z = z + distance
-    self.coordinates = [x, y, z]
-  
-  def clear(self):
-   self.draw(self.coordinates, block.AIR) 
-
-  def wander(self):
-    world.postToChat("wandering")
-    for i in range(0, 100 ):
-      self.clear()
-      self.update(1)
-      self.draw(self.coordinates, self.material)
-      time.sleep(0.2)
-
-# Actual code
-time.sleep(5)
 coordinates = world.player.getPos()
-mob = Mob(coordinates, 3)
+material = block.STONE
+distance = 3
 
-mob.wander()
+coordinates = update(coordinates, distance)
+draw(world, coordinates, material)
 
+time.sleep(5)
+
+wander(world, coordinates, material)
