@@ -25,12 +25,12 @@ You should see text output on the server console, and a block should appear near
 If you have installed this package before the presentation, start poking around. Change values in the code. See what happens. If you figured out something cool, be sure to be ready to share it the day of the presentation.
 
 # The sequence of the scripts
-block.py
-column.py
-moving.py
-follow.py and mob.py
-scanning.py and mob2.py
-tagging.py and weepingAngel.py
+* block.py
+* column.py
+* moving.py
+* follow.py and mob.py
+* scanning.py and mob2.py
+* tagging.py and weepingAngel.py
 
 # Installing the software yourself
 This is what you need
