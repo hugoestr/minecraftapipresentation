@@ -2,7 +2,9 @@
 
 Here is distribution of Craftbukkit that you will need to work and follow the examples of the presentation. You can check the project out or simply download the zip package. The link to the zip package should be on the right.
 
-The instructions are for Windows. If you are using a Mac or Linux, change the parts that are appropriate.
+The instructions are for Windows. If you are using a Mac or Linux, change the parts that are appropriate. 
+
+There is a video walking through the [installation process](http://youtu.be/p1i7x8J1HX0) The steps are outlined below
 
 You should have already have Minecraft 1.6.2, Python 2.7  installed and Java installed. After you have installed Python and Java, follow the instructions below
 
