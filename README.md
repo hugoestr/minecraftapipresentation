@@ -8,7 +8,7 @@ You should have already have Minecraft 1.6.2, Python 2.7  installed and Java ins
 
 * Unzip the package in the desktop.
 
-* Double click on run.bat. This will start the server.
+* Double click on run.bat. This will start the server. If on a Mac, use run-mac.command
 
 * Start Minecraft on your laptop. Select multiple player, and then find the 'local craftbukkit' server. Log into that world. If you don't see it, use direct connect instead. For the address type in 'localhost' and click connect. 
 
@@ -19,6 +19,7 @@ You should have already have Minecraft 1.6.2, Python 2.7  installed and Java ins
 python block.py
 
 You should see text output on the server console, and a block should appear near you in Minecraft. If this works, then you have installed everything correctly.
+
 
 ## Start poking around
 
