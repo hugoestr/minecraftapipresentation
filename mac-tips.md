@@ -1,4 +1,4 @@
-***Some Tips for Mac Users
+***Some Tips for Mac Users***
 
 1. To access the terminal application:
 
