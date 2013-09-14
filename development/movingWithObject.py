@@ -1,4 +1,3 @@
-# Creating a column that will start moving
 import mcpi.minecraft as minecraft
 import mcpi.block as block
 import time
@@ -6,7 +5,6 @@ import time
 world = minecraft.Minecraft.create()
 
 # we create a mob class to create mob objects 
-# this saves us from having to type the creating code again and again
 class Mob():
   # this is the method that creates the Mob object
   def __init__(self, coordinates, distance):
@@ -16,6 +14,7 @@ class Mob():
     self.update(distance)
     self.draw(self.coordinates, self.material)
 
+  # the rest of the methods looks similar. Notice self
   def draw(self, coordinates, material):
     [x,y,z] = coordinates
     height = 3

@@ -33,6 +33,15 @@ class Mob():
   def clear(self):
    self.draw(self.coordinates, block.AIR) 
 
+  def wander(self):
+    self.world.postToChat("wandering")
+    for i in range(0, 100 ):
+      self.clear()
+      self.update(1)
+      self.draw(self.coordinates, self.material)
+      time.sleep(0.2)
+
+  # here is the new scan method
   def scan(self):
     [x, y, z] = self.world.player.getPos()
 
@@ -41,7 +50,7 @@ class Mob():
     else:
       self.world.postToChat("Come out come out wherever you are!")
 
-
+  # this method let us know if the method is within looking range
   def within_range(self, coordinates, player_x, player_z):
     result = False
     [x, y, z] = coordinates 
@@ -52,12 +61,4 @@ class Mob():
       result = True
 
     return result
-
-  def wander(self):
-    self.world.postToChat("wandering")
-    for i in range(0, 100 ):
-      self.clear()
-      self.update(1)
-      self.draw(self.coordinates, self.material)
-      time.sleep(0.2)
 

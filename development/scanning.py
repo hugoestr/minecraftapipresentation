@@ -1,4 +1,3 @@
-# We know have the block looking for us 
 import mcpi.minecraft as minecraft
 import mcpi.block as block
 import time

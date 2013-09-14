@@ -3,10 +3,10 @@ import mcpi.minecraft as minecraft
 import mcpi.block as block
 import time
 
+# the following are methods
 def draw(world, coordinates, material):
   [x,y,z] = coordinates
   height = 3
-  distance = 3
 
   for level in range(0, height):
     world.setBlock( x, y + level, z, material) 
@@ -16,6 +16,7 @@ def update(coordinates, distance):
   x = x + distance
   z = z + distance
   coordinates = [x, y, z]
+
   return coordinates
 
 def clear(world, coordinates):
@@ -23,10 +24,12 @@ def clear(world, coordinates):
 
 def wander(world, coordinates, material):
   world.postToChat("wandering")
-  for i in range(0, 100 ):
+  
+  for i in range(0, 100):
     clear(world, coordinates)
     coordinates = update(coordinates, 1)
     draw(world, coordinates, material)
+    
     time.sleep(0.2)
 
 
@@ -41,4 +44,5 @@ draw(world, coordinates, material)
 
 time.sleep(5)
 
+# We start using our methods here
 wander(world, coordinates, material)

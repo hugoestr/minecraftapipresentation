@@ -1,7 +1,3 @@
-# Our scanning version of the mob
-# Our code got so big that it was hard to see what was 
-# happening clearly, so now we create a seperate class
-
 import mcpi.minecraft as minecraft
 import mcpi.block as block
 import time
@@ -51,6 +47,7 @@ class Mob():
     [x, y, z] = self.coordinates
     self.move("z", int(dest_z - z)) 
 
+  # the method that will look for the player
   def look(self):
     [found, player] = self.scan()
     if found:
@@ -101,7 +98,9 @@ class Mob():
     self.world.postToChat("Wandering")
     destination = self.random_position()
     self.go_to(destination) 
-  
+ 
+  # there was a bug in the previous version
+  # this version fixes the bug
   def within_range(self, player_x, player_z):
     result = False
     [x, y, z] = self.coordinates 

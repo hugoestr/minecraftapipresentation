@@ -28,8 +28,9 @@ If you have installed this package before the presentation, start poking around.
 * block.py
 * column.py
 * moving.py
-* follow.py and mob.py
-* scanning.py and mob2.py
+* movingWithObject.py
+* scanning.py and mob.py
+* follow.py and mob2.py
 * tagging.py and weepingAngel.py
 
 # Installing the software yourself

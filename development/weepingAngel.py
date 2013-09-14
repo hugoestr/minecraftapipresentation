@@ -1,111 +1,90 @@
-# Our scanning version of the mob
-# Our code got so big that it was hard to see what was 
-# happening clearly, so now we create a seperate class
+# We are using inheritance to reduce the amount of code displayed 
+# we are telling the computer to use everything 
+# we already wrote for the Mob object
 
 import mcpi.minecraft as minecraft
 import mcpi.block as block
 import time
 import random
+from mob2 import Mob
 
-class Mob():
+class WeepingAngel(Mob):
   def __init__(self, world, coordinates, distance):
-    self.world = world
-    [x, y, z] = coordinates
-    self.coordinates = [x + distance, y, z + distance]
-    self.material = block.LAVA
-    self.scan_range = 5
+    super(WeepingAngel, self).__init__(world, coordinates, distance)
 
-    random.seed()
-    self.draw(self.coordinates, self.material)
-  
-  def clear(self):
-   self.draw(self.coordinates, block.AIR) 
-  
-  def draw(self, coordinates, material):
-    [x,y,z] = coordinates
-    height = 3
-    distance = 3
+  # the collision detection entry point
+  # it implements mob2's collision_detection()
+  def collision_detection(self):
+    self.with_player()
+    self.our_blocks()
+    #self.world.postToChat("Collision detection")
 
-    for level in range(0, height):
-      self.world.setBlock( x, y + level, z, material) 
+  def with_player(self):
+    player = self.world.player.getPos()
+    if self.overlap(player):
+      self.teleport_player()
+ 
+  # overlap the actual code that check if there is an overlap
+  def overlap(self, coordinates):
+    result = False
+    [x, y, z] = self.coordinates 
+    [player_x, player_y, player_z] = coordinates
 
-  def follow(self, coordinates):
-    self.world.postToChat("Following")
-    self.go_to(coordinates) 
-
-  def get_sign(self, number):
-    result = 1
-
-    if number < 0:
-      result = -1
+    if (int(player_x) == int(x) ) and (int(player_z) == int(z)) and  (self.in_range(int(y), 3, int(player_y)) or self.in_range(int(y), 3, int(player_y))) :
+      result = True
 
     return result
 
-  def go_to(self, coordinates):
-    [x, y, z] = self.coordinates
-    [dest_x, dest_y, dest_z] = coordinates 
-  
-    self.world.postToChat("x: " + str(dest_x) + " z:" + str(dest_z))
-    self.move("x", int(dest_x - x)) 
-
-    [x, y, z] = self.coordinates
-    self.move("z", int(dest_z - z)) 
-
-  def look(self):
-    [found, player] = self.scan()
-    if found:
-      self.follow(player)
-    else:
-      self.wander()
- 
-  def move(self, direction, steps):
-    sign = self.get_sign(steps)
-
-    for i in range(0, abs(steps)):
-      self.clear()
-      self.update(direction, (sign * 1))
-      self.draw(self.coordinates, self.material)
-      time.sleep(0.2)
- 
-  def random_position(self):
-    [x, y, z] = self.coordinates
-    destination_x = random.randint(int(x - self.scan_range), int(x + self.scan_range)) 
-    destination_z = random.randint(int(z - self.scan_range), int(z + self.scan_range)) 
-
-    return [destination_x, y, destination_z]
-
-  def scan(self):
-    found = False
-    coordinates = []
-    [x, y, z] = self.world.player.getPos()
-
-    if self.within_range(x, z):
-      found = True
-      coordinates = [x, y, z]
-
-    return [found, coordinates]
-
-  def update(self, direction, step):
-    [x, y, z] = self.coordinates
-    position = [] 
-    
-    self.world.postToChat("step is : " + str(step) )
-    if direction == "x":
-       position = [x + step, y, z] 
-    elif direction == "z":
-       position = [x, y, z + step] 
-
-    self.coordinates = position
-  
-  def wander(self):
-    self.world.postToChat("Wandering")
-    destination = self.random_position()
-    self.go_to(destination) 
-  
-  def within_range(self, player_x, player_z):
+  def in_range(self, lower, upperOffset, value):
     result = False
-    [x, y, z] = self.coordinates 
-    if (player_x > (x - self.scan_range) and player_x < (x + self.scan_range)) and  (player_z > (z - self.scan_range) and player_z < (z + self.scan_range)):
+
+    if lower <= value and value <= (lower + upperOffset):
+      result = True
+
+    return result
+ 
+  # teleporting the player
+  def teleport_player(self):
+    [x_change, y_change, z_change] = self.teleporting_coordinates()
+    [x, y, z] = self.world.player.getPos()
+    
+    new_position = [x + x_change, y + y_change, z + z_change ]
+    self.world.player.setPos(new_position)
+    
+    self.world.postToChat("Teleporting player")
+ 
+  def teleport_self(self):
+    [x_change, y_change, z_change] = self.teleporting_coordinates()
+    self.coordinates = [x + x_change, y + y_change, z + z_change ]
+    
+    self.world.postToChat("Teleporting mob")
+ 
+  def teleporting_coordinates(self):
+    offset = 30
+    height_range = 10
+   
+    x = random.randint(-1 * offset, offset) 
+    y = random.randint(0, height_range) 
+    z = random.randint(-1 * offset, offset) 
+
+    return [x, y, z]
+
+
+  def our_blocks(self):
+   blocks = self.world.events.pollBlockHits()
+
+   for block in blocks:
+
+     if self.got_hit(block):
+       self.teleport_self()
+
+   self.world.events.clear()
+
+
+  def got_hit(self, block):
+    result = False
+
+    if block.pos == self.coordinates:
       result = True
 
     return result
