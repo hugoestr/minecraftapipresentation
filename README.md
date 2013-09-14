@@ -2,13 +2,15 @@
 
 Here is distribution of Craftbukkit that you will need to work and follow the examples of the presentation. You can check the project out or simply download the zip package. The link to the zip package should be on the right.
 
-The instructions are for Windows. If you are using a Mac or Linux, change the parts that are appropriate.
+The instructions are for Windows. If you are using a Mac or Linux, change the parts that are appropriate. 
+
+There is a video walking through the [installation process](http://youtu.be/p1i7x8J1HX0) The steps are outlined below
 
 You should have already have Minecraft 1.6.2, Python 2.7  installed and Java installed. After you have installed Python and Java, follow the instructions below
 
 * Unzip the package in the desktop.
 
-* Double click on run.bat. This will start the server.
+* Double click on run.bat. This will start the server. If on a Mac, use run-mac.command
 
 * Start Minecraft on your laptop. Select multiple player, and then find the 'local craftbukkit' server. Log into that world. If you don't see it, use direct connect instead. For the address type in 'localhost' and click connect. 
 
@@ -19,6 +21,7 @@ You should have already have Minecraft 1.6.2, Python 2.7  installed and Java ins
 python block.py
 
 You should see text output on the server console, and a block should appear near you in Minecraft. If this works, then you have installed everything correctly.
+
 
 ## Start poking around
 
