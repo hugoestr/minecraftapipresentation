@@ -32,7 +32,7 @@ def wander(world, coordinates, material):
     
     time.sleep(0.2)
 
-
+# the set up code
 world = minecraft.Minecraft.create()
 
 coordinates = world.player.getPos()
@@ -44,5 +44,5 @@ draw(world, coordinates, material)
 
 time.sleep(5)
 
-# We start using our methods here
+# We start using our method here
 wander(world, coordinates, material)

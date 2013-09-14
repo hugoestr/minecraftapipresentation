@@ -14,7 +14,7 @@ class Mob():
     self.update(distance)
     self.draw(self.coordinates, self.material)
 
-  # the rest of the methods looks similar. Notice self
+  # the rest of the methods looks similar. Notice self as the first argument
   def draw(self, coordinates, material):
     [x,y,z] = coordinates
     height = 3

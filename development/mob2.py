@@ -3,12 +3,12 @@ import mcpi.block as block
 import time
 import random
 
-class Mob():
+class Mob(object):
   def __init__(self, world, coordinates, distance):
     self.world = world
     [x, y, z] = coordinates
     self.coordinates = [x + distance, y, z + distance]
-    self.material = block.LAVA
+    self.material = block.STONE
     self.scan_range = 5
 
     random.seed()
@@ -16,6 +16,9 @@ class Mob():
   
   def clear(self):
    self.draw(self.coordinates, block.AIR) 
+
+  def collision_detection(self):
+    return None
   
   def draw(self, coordinates, material):
     [x,y,z] = coordinates
@@ -59,11 +62,15 @@ class Mob():
     sign = self.get_sign(steps)
 
     for i in range(0, abs(steps)):
+      self.turn(direction, sign)
+    
+  def turn(self, direction, sign):
       self.clear()
       self.update(direction, (sign * 1))
       self.draw(self.coordinates, self.material)
+      self.collision_detection() 
       time.sleep(0.2)
- 
+
   def random_position(self):
     [x, y, z] = self.coordinates
     destination_x = random.randint(int(x - self.scan_range), int(x + self.scan_range)) 
@@ -86,7 +93,7 @@ class Mob():
     [x, y, z] = self.coordinates
     position = [] 
     
-    self.world.postToChat("step is : " + str(step) )
+    #self.world.postToChat("step is : " + str(step) )
     if direction == "x":
        position = [x + step, y, z] 
     elif direction == "z":

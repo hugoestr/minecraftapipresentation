@@ -15,8 +15,8 @@ class WeepingAngel(Mob):
   # the collision detection entry point
   # it implements mob2's collision_detection()
   def collision_detection(self):
+    #self.our_blocks()
     self.with_player()
-    self.our_blocks()
     #self.world.postToChat("Collision detection")
 
   def with_player(self):
@@ -73,13 +73,13 @@ class WeepingAngel(Mob):
   def our_blocks(self):
    blocks = self.world.events.pollBlockHits()
 
+   self.world.postToChat("checking being hit")
+   
    for block in blocks:
 
      if self.got_hit(block):
+       self.world.postToChat("hit by player")
        self.teleport_self()
-
-   self.world.events.clear()
-
 
   def got_hit(self, block):
     result = False
